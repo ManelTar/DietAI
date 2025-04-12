@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_practica_ia/components/my_button.dart';
 import 'package:proyecto_practica_ia/components/my_textfield.dart';
@@ -10,7 +11,10 @@ class LoginScreen extends StatelessWidget {
   final contrasenaController = TextEditingController();
 
   // Método para inciar sesión
-  void iniciarSesion() {}
+  void iniciarSesion() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: usuarioController.text, password: contrasenaController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
