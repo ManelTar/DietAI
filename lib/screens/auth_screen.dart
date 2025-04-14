@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_practica_ia/screens/home_screen.dart';
+import 'package:proyecto_practica_ia/screens/login_or_register_screen.dart';
 import 'package:proyecto_practica_ia/screens/login_screen.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class AuthScreen extends StatelessWidget {
           if (snapshot.hasData) {
             return HomeScreen();
           } else {
-            return LoginScreen();
+            return LoginOrRegisterScreen();
           }
         },
       ),

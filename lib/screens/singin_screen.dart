@@ -6,21 +6,23 @@ import 'package:proyecto_practica_ia/components/my_textfield.dart';
 import 'package:proyecto_practica_ia/components/square_tile.dart';
 import 'package:proyecto_practica_ia/services/auth_services.dart';
 
-class LoginScreen extends StatefulWidget {
+class SinginScreen extends StatefulWidget {
   final Function()? onTap;
-  const LoginScreen({super.key, required this.onTap});
+  const SinginScreen({super.key, required this.onTap});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SinginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<SinginScreen> {
   final usuarioController = TextEditingController();
 
   final contrasenaController = TextEditingController();
 
+  final confirmarContrasenaController = TextEditingController();
+
   // Método para inciar sesión
-  void iniciarSesion() async {
+  void crearSesion() async {
     // Mostrar circulo de carga
     showDialog(
         context: context,
@@ -31,10 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
         });
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: usuarioController.text,
-        password: contrasenaController.text,
-      );
+      //comprobar contraseñas
+      if (contrasenaController.text == confirmarContrasenaController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: usuarioController.text,
+          password: contrasenaController.text,
+        );
+      } else {
+        mostrarMensajeErrorContrasenas("Las contraseñas no coniciden");
+      }
       Navigator.pop(context); // Solo si el login es exitoso
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
@@ -59,14 +66,18 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void wrongPasswordMessage() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("Contraseña no es correcta"),
-          );
-        });
+  void mostrarMensajeErrorContrasenas(String mensaje) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          mensaje,
+          textAlign: TextAlign.center,
+        ),
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.redAccent,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 
   @override
@@ -81,39 +92,32 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 50),
                 const Icon(
                   Icons.person,
-                  size: 100,
+                  size: 75,
                 ),
                 const SizedBox(height: 25),
-                Text("¡Bienvenido de vuelta!",
+                Text("¡Bienvenido!",
                     style: TextStyle(color: Colors.grey[700], fontSize: 18)),
-                const SizedBox(height: 75),
+                const SizedBox(height: 50),
                 MyTextfield(
                   controller: usuarioController,
                   hintText: 'Nombre de usuario',
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 15),
                 MyPasswordTextfield(
                   controller: contrasenaController,
                   hintText: 'Contraseña',
                 ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 26),
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Text(
-                      '¿Has olvidado la contraseña?',
-                      style: TextStyle(color: Colors.grey[500]),
-                    )
-                  ]),
+                const SizedBox(height: 15),
+                MyPasswordTextfield(
+                  controller: confirmarContrasenaController,
+                  hintText: 'Confirma la contraseña',
                 ),
                 const SizedBox(height: 25),
                 MyButton(
-                  text: 'Inicia Sesión',
-                  onTap: iniciarSesion,
+                  text: 'Crear cuenta',
+                  onTap: crearSesion,
                 ),
                 const SizedBox(height: 25),
                 Padding(
@@ -152,12 +156,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('¿No tienes cuenta?'),
+                    Text('¿Ya tienes cuenta?'),
                     SizedBox(width: 5),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
-                        '¡Crea una!',
+                        '¡Inicia sesión!',
                         style: TextStyle(
                             color: Colors.blueAccent,
                             fontWeight: FontWeight.bold),
