@@ -38,7 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pop(context); // Solo si el login es exitoso
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
-      print('Error al hacer login: ${e.code}');
       if (e.code == 'invalid-credential') {
         mostrarMensajeError("Email o contraseña incorrectos");
       }

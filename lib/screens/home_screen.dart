@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:deepseek_client/deepseek_client.dart';
 import 'package:proyecto_practica_ia/components/my_button.dart';
 import 'package:proyecto_practica_ia/components/my_card.dart';
-import 'package:proyecto_practica_ia/components/my_textfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
+
+import 'package:proyecto_practica_ia/components/my_pop_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -77,16 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final diasOrdenados = [
-      'lunes',
-      'martes',
-      'miércoles',
-      'jueves',
-      'viernes',
-      'sábado',
-      'domingo',
-    ];
-
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
@@ -100,24 +91,6 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            // 🧠 Input para IA
-            Row(
-              children: [
-                Expanded(
-                  child: MyTextfield(
-                    controller: textoController,
-                    hintText: "Pregunta a la IA",
-                  ),
-                ),
-                const SizedBox(width: 10),
-                MyButton(
-                  text: "📤",
-                  onTap: obtenerRespuesta,
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-
             // 📋 Menús desde Firestore
             Expanded(
               child: StreamBuilder<DocumentSnapshot>(
@@ -181,6 +154,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [MyPopButton()])
           ],
         ),
       ),
