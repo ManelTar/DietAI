@@ -18,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final nombreUsuario = FirebaseAuth.instance.currentUser;
   final textoController = TextEditingController();
-  String respuestaDeepSeek = "Cargando respuesta...";
 
   @override
   void initState() {
@@ -29,52 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseAuth.instance.signOut();
   }
 
-  Future<void> guardarMenuEnFirestore(String menuJson) async {
-    final data = json.decode(menuJson); // convierte el texto a mapa
-    await FirebaseFirestore.instance.collection("menus").add(data);
-  }
-
-  Future<void> obtenerRespuesta() async {
-    final usuario = FirebaseAuth.instance.currentUser?.uid;
-    try {
-      final response = await DeepSeekClient.sendMessage(
-        messages: [
-          Message(
-            content:
-                "Dame un menú semanal en formato JSON, sin explicaciones, solo la estructura como objeto JSON, con los días como claves y cada día con desayuno, comida y cena.",
-            role: "system",
-          ),
-        ],
-        model: DeekSeekModels.chat,
-      );
-
-      // 🔹 Obtener el contenido de la IA
-      String rawContent = response.choices!.first.message?.content ?? "";
-
-      // ✂️ Limpiar el posible bloque Markdown
-      rawContent =
-          rawContent.replaceAll("```json", "").replaceAll("```", "").trim();
-
-      // 🔄 Convertir a Map
-      final Map<String, dynamic> menuData = json.decode(rawContent);
-
-      // 🔥 Guardar en Firebase
-      await FirebaseFirestore.instance
-          .collection("menus")
-          .doc(usuario as String)
-          .set(menuData);
-
-      // 🧾 Mostrar la respuesta como texto en la app (opcional, para debug)
-      // setState(() {
-      //   respuestaDeepSeek =
-      //       json.encode(menuData); // lo convierte de vuelta a String
-      // });
-    } catch (e) {
-      setState(() {
-        respuestaDeepSeek = "Error al obtener respuesta: $e";
-      });
-    }
-  }
+  // Future<void> guardarMenuEnFirestore(String menuJson) async {
+  //   final data = json.decode(menuJson); // convierte el texto a mapa
+  //   await FirebaseFirestore.instance.collection("menus").add(data);
+  // }
 
   @override
   Widget build(BuildContext context) {
