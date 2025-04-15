@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "DietAI",
+        "request": "launch",
+        "type": "dart",
+        "program": "lib/main.dart",
+        "args": [
+          "--dart-define=deepseek_token=sk-b745aa35381948b8a82c64128f3df7d0"
+        ]
+      }
+    ]
+  }
