@@ -4,11 +4,13 @@ class MyTextfield extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   final controller;
   final String hintText;
+  final TextInputType keyboardType;
 
   const MyTextfield({
     super.key,
     required this.controller,
     required this.hintText,
+    required this.keyboardType
   });
 
   @override
@@ -28,6 +30,7 @@ class MyTextfield extends StatelessWidget {
             filled: true,
             hintText: hintText,
             hintStyle: TextStyle(color: Colors.grey[400])),
+            keyboardType: keyboardType,
       ),
     );
   }

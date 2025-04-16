@@ -16,7 +16,21 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   String respuestaDeepSeek = "Cargando respuesta...";
   Future<void> obtenerRespuesta() async {
-    final usuario = FirebaseAuth.instance.currentUser?.uid;
+    final usuario = FirebaseAuth.instance.currentUser!.uid;
+
+    // Mostrar loading
+    showDialog(
+      context: context,
+      barrierDismissible: false, // evita que se cierre tocando fuera
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        );
+      },
+    );
+
     try {
       final response = await DeepSeekClient.sendMessage(
         messages: [
@@ -30,32 +44,36 @@ class _MenuScreenState extends State<MenuScreen> {
         model: DeekSeekModels.chat,
       );
 
-      // 🔹 Obtener el contenido de la IA
       String rawContent = response.choices!.first.message?.content ?? "";
-
-      // ✂️ Limpiar el posible bloque Markdown
       rawContent =
           rawContent.replaceAll("```json", "").replaceAll("```", "").trim();
 
-      // 🔄 Convertir a Map
       final Map<String, dynamic> menuData = json.decode(rawContent);
 
-      // 🔥 Guardar en Firebase
       await FirebaseFirestore.instance
           .collection("menus")
-          .doc(usuario as String)
+          .doc(usuario)
           .set(menuData);
 
-      // 🧾 Mostrar la respuesta como texto en la app (opcional, para debug)
-      // setState(() {
-      //   respuestaDeepSeek =
-      //       json.encode(menuData); // lo convierte de vuelta a String
-      // });
+      // Cerrar el loading una vez terminado
+      Navigator.pop(context);
+
+      // Opcional: volver a la pantalla anterior o mostrar éxito
+      Navigator.pop(context); // ← esto te devuelve a la pantalla anterior
     } catch (e) {
+      Navigator.pop(context); // cerrar el loading en caso de error también
       setState(() {
         respuestaDeepSeek = "Error al obtener respuesta: $e";
       });
     }
+  }
+
+  Future<void> eliminarLista() async {
+    final usuario = FirebaseAuth.instance.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection("listas")
+        .doc(usuario)
+        .delete();
   }
 
   List<String> opciones = ["Perder peso", "Ganar peso", "Mantener peso"];
@@ -96,11 +114,8 @@ class _MenuScreenState extends State<MenuScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   // Aquí haces algo con la opción seleccionada
-                  obtenerRespuesta(); // ← ¡Aquí se lanza la petición!
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                  );
+                  obtenerRespuesta();
+                  eliminarLista();
                 },
                 child: const Text("Generar menú"),
               ),

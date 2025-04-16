@@ -92,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 MyTextfield(
                   controller: usuarioController,
                   hintText: 'Nombre de usuario',
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 25),
                 MyPasswordTextfield(

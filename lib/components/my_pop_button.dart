@@ -14,7 +14,7 @@ class MyPopButton extends StatelessWidget {
           width: 250,
           height: 150,
           backgroundColor: Colors.blueGrey.shade100),
-      child: const Icon(Icons.add),
+      child: const Icon(Icons.add_box_rounded, color: Colors.white70, size: 35,),
     );
   }
 }

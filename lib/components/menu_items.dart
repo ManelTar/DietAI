@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_practica_ia/screens/config_screen.dart';
+import 'package:proyecto_practica_ia/screens/lista_screen.dart';
 import 'package:proyecto_practica_ia/screens/menu_screen.dart';
 
 class MenuItems extends StatelessWidget {
@@ -29,30 +31,46 @@ class MenuItems extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          height: 50,
-          width: 250,
-          color: Colors.blueGrey[100],
-          child: Padding(
-            padding: EdgeInsets.only(top: 15),
-            child: Text(
-              "Ver historial de menús",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
-              textAlign: TextAlign.center,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ListaScreen()),
+            );
+          },
+          child: Container(
+            height: 50,
+            width: 250,
+            color: Colors.blueGrey[100],
+            child: Padding(
+              padding: EdgeInsets.only(top: 15),
+              child: Text(
+                "Ver lista de la compra",
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),
-        Container(
-          height: 50,
-          width: 250,
-          color: Colors.blueGrey[50],
-          child: Padding(
-            padding: EdgeInsets.only(top: 15),
-            child: Text(
-              "Configurar menús",
-              style: TextStyle(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ConfigScreen()),
+            );
+          },
+          child: Container(
+            height: 50,
+            width: 250,
+            color: Colors.blueGrey[50],
+            child: Padding(
+              padding: EdgeInsets.only(top: 15),
+              child: Text(
+                "Configurar menús",
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),

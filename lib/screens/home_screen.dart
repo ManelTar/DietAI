@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 
 import 'package:proyecto_practica_ia/components/my_pop_button.dart';
+import 'package:proyecto_practica_ia/components/my_profile_picture.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,21 +29,27 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseAuth.instance.signOut();
   }
 
-  // Future<void> guardarMenuEnFirestore(String menuJson) async {
-  //   final data = json.decode(menuJson); // convierte el texto a mapa
-  //   await FirebaseFirestore.instance.collection("menus").add(data);
-  // }
-
   @override
   Widget build(BuildContext context) {
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
+      backgroundColor: Colors.black87,
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(67, 0, 0, 0),
         actions: [
           IconButton(onPressed: cerrarSesion, icon: Icon(Icons.logout)),
         ],
-        title: const Text("Home"),
+        title: const Text("Home", style: TextStyle(color: Colors.white),),
+      ),
+      drawer: Drawer(
+        surfaceTintColor: Colors.white,
+        child: ListView(
+          children: [
+            MyProfilePicture()
+
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -83,13 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   final data = rawData;
                   final diasOrdenados = [
-                    'lunes',
-                    'martes',
-                    'miércoles',
-                    'jueves',
-                    'viernes',
-                    'sábado',
-                    'domingo',
+                    'Lunes',
+                    'Martes',
+                    'Miércoles',
+                    'Jueves',
+                    'Viernes',
+                    'Sábado',
+                    'Domingo',
                   ];
 
                   final diasMenu = diasOrdenados
