@@ -20,26 +20,29 @@ class _MenuCardState extends State<MenuCard> {
   
   @override
   Widget build(BuildContext context) {
-    return  Card(
-        color: Colors.grey[100],
-        shadowColor: Colors.white,
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        elevation: 0,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(widget.dia[0].toUpperCase() + widget.dia.substring(1),
-                  style:
-                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-              const SizedBox(height: 4),
-              Text("🍽 Desayuno: ${widget.comidas['desayuno'] ?? 'No disponible'}"),
-              Text("🥘 Comida: ${widget.comidas['comida'] ?? 'No disponible'}"),
-              Text("🌙 Cena: ${widget.comidas['cena'] ?? 'No disponible'}"),
-            ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 3),
+      child: Card(
+          color: Colors.grey[200],
+          shadowColor: Colors.grey,
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          elevation: 1.5,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.dia[0].toUpperCase() + widget.dia.substring(1),
+                    style:
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                const SizedBox(height: 4),
+                Text("🍽 Desayuno: ${widget.comidas['desayuno'] ?? 'No disponible'}"),
+                Text("🥘 Comida: ${widget.comidas['comida'] ?? 'No disponible'}"),
+                Text("🌙 Cena: ${widget.comidas['cena'] ?? 'No disponible'}"),
+              ],
+            ),
           ),
-        ),
+      ),
     );
   }
 }

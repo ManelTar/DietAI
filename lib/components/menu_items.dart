@@ -20,7 +20,7 @@ class MenuItems extends StatelessWidget {
           child: Container(
             height: 50,
             width: 250,
-            color: Colors.blueGrey[200],
+            color: Colors.blue[300],
             child: Padding(
               padding: EdgeInsets.only(top: 15),
               child: Text(
@@ -41,7 +41,7 @@ class MenuItems extends StatelessWidget {
           child: Container(
             height: 50,
             width: 250,
-            color: Colors.blueGrey[100],
+            color: Colors.blue[200],
             child: Padding(
               padding: EdgeInsets.only(top: 15),
               child: Text(
@@ -63,7 +63,7 @@ class MenuItems extends StatelessWidget {
           child: Container(
             height: 50,
             width: 250,
-            color: Colors.blueGrey[50],
+            color: Colors.blue[100],
             child: Padding(
               padding: EdgeInsets.only(top: 15),
               child: Text(

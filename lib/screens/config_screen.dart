@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:proyecto_practica_ia/components/my_text_title.dart';
+import 'package:proyecto_practica_ia/components/my_textfield.dart';
 import 'package:proyecto_practica_ia/components/my_textoform.dart';
 
 class ConfigScreen extends StatefulWidget {
@@ -10,28 +12,89 @@ class ConfigScreen extends StatefulWidget {
 }
 
 class _ConfigScreenState extends State<ConfigScreen> {
-  String valorDropDown = 'Uno';
+  final gustosController = TextEditingController();
+  final disgustosController = TextEditingController();
+  String valorDropDown = 'Hombre';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(67, 0, 0, 0),
+        backgroundColor: Colors.blue.shade400,
         title: const Text(
-          "Home",
+          "Configura tú menú",
           style: TextStyle(color: Colors.white),
         ),
       ),
       body: SafeArea(
           child: Column(
         children: [
-          // Personas
-          MyTextoform(text: "Número de personas"),
+          const SizedBox(
+            height: 15,
+          ),
           const SizedBox(
             height: 15,
           ),
           // Edad
-          MyTextoform(text: "Edad")
+          MyTextoform(
+            text: "Edad",
+            textInput: "Edad",
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          // Sexo (dropdown)
+          MyTextTitle(text: "Sexo"),
+          Padding(
+            padding: EdgeInsets.only(left: 25, top: 10),
+            child: Row(children: [
+              DropdownButton<String>(
+                borderRadius: BorderRadius.circular(15),
+                value: valorDropDown,
+                icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
+                onChanged: (value) {
+                  setState(() {
+                    valorDropDown = value!;
+                  });
+                },
+                items: const [
+                  DropdownMenuItem<String>(
+                      value: "Hombre", child: Text("Hombre")),
+                  DropdownMenuItem<String>(
+                      value: "Mujer", child: Text("Mujer")),
+                  DropdownMenuItem<String>(
+                      value: "No binario", child: Text("No binario")),
+                ],
+              ),
+            ]),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          MyTextoform(textInput: "Altura en cm", text: "Altura"),
+          const SizedBox(
+            height: 15,
+          ),
+          MyTextoform(textInput: "Peso", text: "Peso"),
+          // Altura
+          // Peso
+          // Alergias (multiselect)
+          // Intoleranciasconst 
+          const SizedBox(
+            height: 15,
+          ),
+          // Preferencias (gustos y disgustos)
+          MyTextfield(
+              controller: gustosController,
+              hintText: "Gustos",
+              keyboardType: TextInputType.multiline)
+          // Tipo de dieta
+          // Restricciones culturales
+          // Precio
         ],
       )),
     );

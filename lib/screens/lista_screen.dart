@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_practica_ia/components/my_button.dart';
 import 'package:proyecto_practica_ia/components/my_card.dart';
 import 'package:proyecto_practica_ia/components/my_lista_card.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ListaScreen extends StatefulWidget {
   const ListaScreen({super.key});
@@ -24,7 +25,12 @@ class _ListaScreenState extends State<ListaScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const Center(child: CircularProgressIndicator()),
+      builder: (context) => Center(
+        child: LoadingAnimationWidget.newtonCradle(
+          color: Colors.blue.shade400,
+          size: 50,
+        ),
+      ),
     );
 
     try {
@@ -80,9 +86,13 @@ class _ListaScreenState extends State<ListaScreen> {
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Lista de la compra"),
+        title: const Text(
+          "Lista de la compra",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue.shade400,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -119,7 +129,11 @@ class _ListaScreenState extends State<ListaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          MyButton(text: "¡Crea una!", onTap: obtenerLista)
+                          MyButton(
+                            text: "¡Crea una!",
+                            onTap: obtenerLista,
+                            color: Colors.blue.shade400,
+                          )
                         ],
                       ),
                     );

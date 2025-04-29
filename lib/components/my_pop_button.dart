@@ -13,8 +13,8 @@ class MyPopButton extends StatelessWidget {
           bodyBuilder: (context) => MenuItems(),
           width: 250,
           height: 150,
-          backgroundColor: Colors.blueGrey.shade100),
-      child: const Icon(Icons.add_box_rounded, color: Colors.white70, size: 35,),
+          backgroundColor: Colors.blue.shade400),
+      child: Icon(Icons.add_box_rounded, color: Colors.blue.shade400, size: 50,),
     );
   }
 }

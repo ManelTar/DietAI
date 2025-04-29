@@ -10,7 +10,9 @@ class ListaCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      color: Colors.white,
+      color: Colors.grey[200],
+      shadowColor: Colors.grey,
+      elevation: 1.5,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

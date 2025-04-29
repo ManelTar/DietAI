@@ -5,6 +5,8 @@ import 'package:proyecto_practica_ia/components/my_button.dart';
 import 'package:proyecto_practica_ia/components/my_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:proyecto_practica_ia/repositories/user_repository.dart';
 
 import 'package:proyecto_practica_ia/components/my_pop_button.dart';
 import 'package:proyecto_practica_ia/components/my_profile_picture.dart';
@@ -34,25 +36,35 @@ class _HomeScreenState extends State<HomeScreen> {
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(67, 0, 0, 0),
-        actions: [
-          IconButton(onPressed: cerrarSesion, icon: Icon(Icons.logout)),
-        ],
-        title: const Text("Home", style: TextStyle(color: Colors.white),),
+        backgroundColor: Colors.blue.shade400,
+        title: const Text(
+          "Dietas",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 26),
+        ),
       ),
       drawer: Drawer(
-        surfaceTintColor: Colors.white,
+        backgroundColor: Colors.blue.shade300,
         child: ListView(
           children: [
-            MyProfilePicture()
-
+            const SizedBox(
+              height: 15,
+            ),
+            MyProfilePicture(),
+            const SizedBox(
+              height: 15,
+            ),
+            Center(child: Text(FirebaseAuth.instance.currentUser!.displayName.toString(), style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold, fontSize: 16),)),
+            const SizedBox(
+              height: 680,
+            ),
+            MyButton(text: "Cerrar sesión", onTap: cerrarSesion, color: Colors.red.shade400,)
           ],
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: [
             // 📋 Menús desde Firestore
@@ -64,8 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(color: Colors.black),
+                    return Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: Colors.white,
+                        size: 200,
+                      ),
                     );
                   }
 
@@ -118,9 +133,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [MyPopButton()])
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [MyPopButton()]),
+            )
           ],
         ),
       ),

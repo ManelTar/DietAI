@@ -119,6 +119,7 @@ class _LoginScreenState extends State<SinginScreen> {
                 MyButton(
                   text: 'Crear cuenta',
                   onTap: crearSesion,
+                  color: Colors.blue.shade400,
                 ),
                 const SizedBox(height: 25),
                 Padding(

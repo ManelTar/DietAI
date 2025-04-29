@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[100],
         body: SafeArea(
             child: ConstrainedBox(
           constraints: BoxConstraints(),
@@ -114,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 MyButton(
                   text: 'Inicia Sesión',
                   onTap: iniciarSesion,
+                  color: Colors.blue.shade400,
                 ),
                 const SizedBox(height: 25),
                 Padding(
