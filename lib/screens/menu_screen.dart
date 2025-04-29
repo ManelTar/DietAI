@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deepseek_client/deepseek_client.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:proyecto_practica_ia/screens/home_screen.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -27,13 +26,55 @@ class _MenuScreenState extends State<MenuScreen> {
         return Center(
           child: LoadingAnimationWidget.stretchedDots(
             color: Colors.blue.shade400,
-            size: 100,
+            size: 75,
           ),
         );
       },
     );
 
     try {
+      DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection("configuraciones")
+          .doc(usuario)
+          .get();
+
+      if (doc.exists) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        final response = await DeepSeekClient.sendMessage(
+          messages: [
+            Message(
+              content:
+                  "Dame un menú semanal en formato JSON, sin explicaciones, solo la estructura como objeto JSON, con los días como claves y cada día con desayuno, comida y cena. "
+                  "El objetivo de la dieta es: $opcionActual."
+                  "Ten en cuenta que tengo ${data['edad']} años, soy ${data['sexo']}, mido ${data['altura']} cm y peso${data['peso']} kilogramos,"
+                  "soy alergico a ${data['alergias']} e intolerate a ${data['intolerancias']}, prefiero que la dieta incluya ${data['gustos']}"
+                  "y que a ser posible no incluya ${data['disgustos']}. Tiene que ser una dieta ${data['dieta']}, ten en cuenta que mi religión es ${data['religion']}"
+                  "y mi presupuesto es de ${data['precio']}."
+                  "Ten en cuenta que soy de España",
+              role: "system",
+            ),
+          ],
+          model: DeekSeekModels.chat,
+        );
+
+        String rawContent = response.choices!.first.message?.content ?? "";
+        rawContent =
+            rawContent.replaceAll("```json", "").replaceAll("```", "").trim();
+
+        final Map<String, dynamic> menuData = json.decode(rawContent);
+
+        await FirebaseFirestore.instance
+            .collection("menus")
+            .doc(usuario)
+            .set(menuData);
+
+        // Cerrar el loading una vez terminado
+        Navigator.pop(context);
+
+        // Opcional: volver a la pantalla anterior o mostrar éxito
+        Navigator.pop(context); //
+      }
+
       final response = await DeepSeekClient.sendMessage(
         messages: [
           Message(
@@ -82,7 +123,11 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Elige tu objetivo", style: TextStyle(color: Colors.white),),
+        title: const Text(
+          "Elige tu objetivo",
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+        ),
         backgroundColor: Colors.blue.shade400,
       ),
       body: Padding(

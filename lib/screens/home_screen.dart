@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:deepseek_client/deepseek_client.dart';
 import 'package:proyecto_practica_ia/components/my_button.dart';
 import 'package:proyecto_practica_ia/components/my_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:proyecto_practica_ia/repositories/user_repository.dart';
 
 import 'package:proyecto_practica_ia/components/my_pop_button.dart';
 import 'package:proyecto_practica_ia/components/my_profile_picture.dart';
@@ -41,26 +38,40 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.blue.shade400,
         title: const Text(
           "Dietas",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 26),
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 26),
         ),
       ),
       drawer: Drawer(
         backgroundColor: Colors.blue.shade300,
-        child: ListView(
-          children: [
-            const SizedBox(
-              height: 15,
-            ),
-            MyProfilePicture(),
-            const SizedBox(
-              height: 15,
-            ),
-            Center(child: Text(FirebaseAuth.instance.currentUser!.displayName.toString(), style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold, fontSize: 16),)),
-            const SizedBox(
-              height: 680,
-            ),
-            MyButton(text: "Cerrar sesión", onTap: cerrarSesion, color: Colors.red.shade400,)
-          ],
+        child: SafeArea(
+          child: Column(
+            children: [
+              const SizedBox(height: 15),
+              MyProfilePicture(),
+              const SizedBox(height: 15),
+              Center(
+                child: Text(
+                  FirebaseAuth.instance.currentUser!.displayName.toString(),
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              Spacer(), // Esto empuja lo siguiente al fondo
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child: MyButton(
+                  text: "Cerrar sesión",
+                  onTap: cerrarSesion,
+                  color: Colors.red.shade400,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: Padding(

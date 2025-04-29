@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class MyTextoform extends StatelessWidget {
   final String textInput;
   final String text;
-  const MyTextoform({super.key, required this.textInput, required this.text});
+  final TextEditingController? controller;
+  const MyTextoform(
+      {super.key,
+      required this.textInput,
+      required this.text,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +22,7 @@ class MyTextoform extends StatelessWidget {
           )
         ]),
         TextFormField(
+          controller: controller,
           decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),

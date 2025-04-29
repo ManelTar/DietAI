@@ -5,7 +5,6 @@ import 'package:deepseek_client/deepseek_client.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_practica_ia/components/my_button.dart';
-import 'package:proyecto_practica_ia/components/my_card.dart';
 import 'package:proyecto_practica_ia/components/my_lista_card.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -26,9 +25,9 @@ class _ListaScreenState extends State<ListaScreen> {
       context: context,
       barrierDismissible: false,
       builder: (context) => Center(
-        child: LoadingAnimationWidget.newtonCradle(
+        child: LoadingAnimationWidget.stretchedDots(
           color: Colors.blue.shade400,
-          size: 50,
+          size: 75,
         ),
       ),
     );
@@ -90,7 +89,8 @@ class _ListaScreenState extends State<ListaScreen> {
       appBar: AppBar(
         title: const Text(
           "Lista de la compra",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
         ),
         backgroundColor: Colors.blue.shade400,
       ),
