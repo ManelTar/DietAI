@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:proyecto_practica_ia/components/my_button.dart';
 import 'package:proyecto_practica_ia/components/my_password_textfield.dart';
 import 'package:proyecto_practica_ia/components/my_textfield.dart';
@@ -25,8 +26,11 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
         context: context,
         builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Center(
+            child: LoadingAnimationWidget.stretchedDots(
+              color: Theme.of(context).colorScheme.primary,
+              size: 75,
+            ),
           );
         });
 
@@ -52,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
           textAlign: TextAlign.center,
         ),
         duration: Duration(seconds: 2),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -71,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SafeArea(
             child: ConstrainedBox(
           constraints: BoxConstraints(),
@@ -87,7 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 25),
                 Text("¡Bienvenido de vuelta!",
-                    style: TextStyle(color: Colors.grey[700], fontSize: 18)),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontSize: 18)),
                 const SizedBox(height: 75),
                 MyTextfield(
                   controller: usuarioController,
@@ -106,7 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     Text(
                       '¿Has olvidado la contraseña?',
-                      style: TextStyle(color: Colors.grey[500]),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface),
                     )
                   ]),
                 ),
@@ -114,7 +121,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 MyButton(
                   text: 'Inicia Sesión',
                   onTap: iniciarSesion,
-                  color: Colors.blue.shade400,
+                  color: Theme.of(context).colorScheme.primary,
+                  textColor: Theme.of(context).colorScheme.onPrimary,
                 ),
                 const SizedBox(height: 25),
                 Padding(
@@ -124,16 +132,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       Expanded(
                           child: Divider(
                         thickness: 0.5,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).colorScheme.onSurface,
                       )),
                       Text(
                         'O continua con',
-                        style: TextStyle(color: Colors.grey[700]),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
                       Expanded(
                           child: Divider(
                         thickness: 0.5,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).colorScheme.onSurface,
                       ))
                     ],
                   ),
@@ -160,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         '¡Crea una!',
                         style: TextStyle(
-                            color: Colors.blueAccent,
+                            color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold),
                       ),
                     )

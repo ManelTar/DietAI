@@ -32,7 +32,7 @@ class _MultiSelectState extends State<MultiSelect> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
+      title: Text(
         'Selecciona opciones',
         style: TextStyle(fontWeight: FontWeight.bold),
       ),

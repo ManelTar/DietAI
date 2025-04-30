@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_practica_ia/components/my_themecode.dart';
 import 'package:proyecto_practica_ia/screens/auth_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,10 +20,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DietAI',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light, // Tema claro personalizado
+      darkTheme: AppTheme.dark, // Tema oscuro personalizado
+      themeMode: ThemeMode.system, // Usa el modo del sistema (puedes cambiarlo)
       home: const AuthScreen(),
     );
   }

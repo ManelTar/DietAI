@@ -26,7 +26,7 @@ class _ListaScreenState extends State<ListaScreen> {
       barrierDismissible: false,
       builder: (context) => Center(
         child: LoadingAnimationWidget.stretchedDots(
-          color: Colors.blue.shade400,
+          color: Theme.of(context).colorScheme.secondary,
           size: 75,
         ),
       ),
@@ -49,9 +49,21 @@ class _ListaScreenState extends State<ListaScreen> {
         messages: [
           Message(
             content:
-                "Dame una lista de la compra en formato JSON, sin explicaciones, "
-                "con cantidades necesarias para cocinar todo lo del menú semanal. "
-                "Aquí está el menú:\n$menuJson",
+                "Dame una lista de la compra en formato JSON válida, sin explicaciones ni comentarios, para el siguiente menú semanal: \n$menuJson. "
+                "El formato debe ser exactamente este:\n\n"
+                "{\n"
+                "  \"lista_compra\": {\n"
+                "    \"categoria_1\": [\n"
+                "      { \"nombre\": \"Producto 1\", \"cantidad\": \"Cantidad 1\" },\n"
+                "      { \"nombre\": \"Producto 2\", \"cantidad\": \"Cantidad 2\" }\n"
+                "    ],\n"
+                "    \"categoria_2\": [\n"
+                "      { \"nombre\": \"Producto 3\", \"cantidad\": \"Cantidad 3\" }\n"
+                "    ]\n"
+                "  }\n"
+                "}\n\n"
+                "Cada categoría debe contener una **lista de productos**. Cada producto debe tener **nombre** y **cantidad** como claves. "
+                "No uses mapas dentro de las categorías. No uses comentarios. No uses arrays anidados. ",
             role: "system",
           ),
         ],
@@ -85,14 +97,16 @@ class _ListaScreenState extends State<ListaScreen> {
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Lista de la compra",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+              fontSize: 24),
         ),
-        backgroundColor: Colors.blue.shade400,
+        backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -124,15 +138,19 @@ class _ListaScreenState extends State<ListaScreen> {
                     return Center(
                       child: Column(
                         children: [
-                          const Text("No hay una lista de la compra aún.",
-                              style: TextStyle(color: Colors.black)),
+                          Text("No hay una lista de la compra aún.",
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface)),
                           const SizedBox(
                             height: 10,
                           ),
                           MyButton(
                             text: "¡Crea una!",
                             onTap: obtenerLista,
-                            color: Colors.blue.shade400,
+                            color: Theme.of(context).colorScheme.secondary,
+                            textColor:
+                                Theme.of(context).colorScheme.onSecondary,
                           )
                         ],
                       ),

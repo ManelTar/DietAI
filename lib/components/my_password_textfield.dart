@@ -27,25 +27,28 @@ class _MyPasswordTextfieldState extends State<MyPasswordTextfield> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TextField(
           controller: widget.controller,
           obscureText: mostrarContrasena,
           decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.onSurface),
             ),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(10))),
-            fillColor: Colors.grey.shade200,
+                borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.primary),
+                borderRadius: const BorderRadius.all(Radius.circular(15))),
+            fillColor: Theme.of(context).colorScheme.surfaceDim,
             filled: true,
             hintText: widget.hintText,
-            hintStyle: TextStyle(color: Colors.grey[400]),
+            hintStyle:
+                TextStyle(color: Theme.of(context).colorScheme.onSurface),
             suffixIcon: IconButton(
               icon: Icon(
                 mostrarContrasena ? Icons.visibility : Icons.visibility_off,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               onPressed: toogleContrasena,
             ),

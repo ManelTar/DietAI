@@ -12,7 +12,10 @@ class MyTextTitle extends StatelessWidget {
         children: [
           Text(
             text,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Theme.of(context).colorScheme.onSurface),
           )
         ],
       ),

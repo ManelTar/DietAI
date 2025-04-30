@@ -5,6 +5,7 @@ import 'package:deepseek_client/deepseek_client.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:proyecto_practica_ia/components/my_button.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -25,7 +26,7 @@ class _MenuScreenState extends State<MenuScreen> {
       builder: (context) {
         return Center(
           child: LoadingAnimationWidget.stretchedDots(
-            color: Colors.blue.shade400,
+            color: Theme.of(context).colorScheme.secondary,
             size: 75,
           ),
         );
@@ -116,6 +117,11 @@ class _MenuScreenState extends State<MenuScreen> {
     await FirebaseFirestore.instance.collection("listas").doc(usuario).delete();
   }
 
+  void llamadaBoton() {
+    obtenerRespuesta();
+    eliminarLista();
+  }
+
   List<String> opciones = ["Perder peso", "Ganar peso", "Mantener peso"];
   String opcionActual = "Perder peso";
 
@@ -123,12 +129,14 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Elige tu objetivo",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+              fontSize: 24),
         ),
-        backgroundColor: Colors.blue.shade400,
+        backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -156,15 +164,15 @@ class _MenuScreenState extends State<MenuScreen> {
             // Botón abajo
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Aquí haces algo con la opción seleccionada
-                  obtenerRespuesta();
-                  eliminarLista();
-                },
-                child: const Text("Generar menú"),
-              ),
+              child: MyButton(
+                  text: "Generar menú",
+                  onTap: llamadaBoton,
+                  color: Theme.of(context).colorScheme.primary,
+                  textColor: Theme.of(context).colorScheme.onPrimary),
             ),
+            const SizedBox(
+              height: 15,
+            )
           ],
         ),
       ),

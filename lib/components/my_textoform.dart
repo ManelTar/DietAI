@@ -24,16 +24,19 @@ class MyTextoform extends StatelessWidget {
         TextFormField(
           controller: controller,
           decoration: InputDecoration(
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.onSurface),
               ),
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400),
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary, width: 2),
                   borderRadius: const BorderRadius.all(Radius.circular(15))),
-              fillColor: Colors.grey.shade200,
+              fillColor: Theme.of(context).colorScheme.surfaceDim,
               filled: true,
               hintText: textInput,
-              hintStyle: TextStyle(color: Colors.grey[400])),
+              hintStyle:
+                  TextStyle(color: Theme.of(context).colorScheme.onSurface)),
           keyboardType:
               TextInputType.number, // Esto hace que salga el teclado numérico
           validator: (value) {

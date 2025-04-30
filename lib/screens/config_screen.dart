@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:proyecto_practica_ia/components/multiselect.dart';
 import 'package:proyecto_practica_ia/components/my_button.dart';
 import 'package:proyecto_practica_ia/components/my_dropdownmenu.dart';
-import 'package:proyecto_practica_ia/components/my_multiselect.dart';
 import 'package:proyecto_practica_ia/components/my_text_title.dart';
 import 'package:proyecto_practica_ia/components/my_textfield.dart';
 import 'package:proyecto_practica_ia/components/my_textoform.dart';
@@ -35,13 +33,15 @@ class _ConfigScreenState extends State<ConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade400,
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
           "Configura tú menú",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+              fontSize: 24),
         ),
       ),
       body: SafeArea(
@@ -217,9 +217,11 @@ class _ConfigScreenState extends State<ConfigScreen> {
               height: 20,
             ),
             MyButton(
-                text: "Finalizar",
-                onTap: configMenu,
-                color: Colors.blue.shade400),
+              text: "Finalizar",
+              onTap: configMenu,
+              color: Theme.of(context).colorScheme.secondary,
+              textColor: Theme.of(context).colorScheme.onSecondary,
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -251,15 +253,21 @@ class _ConfigScreenState extends State<ConfigScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Formulario guardado correctamente"),
-          backgroundColor: Colors.green.shade400,
+          content: Text(
+            "Formulario guardado correctamente",
+            style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
         ),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Error al guardar: $e"),
-          backgroundColor: Colors.red.shade400,
+          content: Text(
+            "Error al guardar: $e",
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
     }

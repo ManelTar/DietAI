@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:proyecto_practica_ia/components/my_button.dart';
 import 'package:proyecto_practica_ia/components/my_password_textfield.dart';
 import 'package:proyecto_practica_ia/components/my_textfield.dart';
@@ -27,8 +28,11 @@ class _LoginScreenState extends State<SinginScreen> {
     showDialog(
         context: context,
         builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Center(
+            child: LoadingAnimationWidget.stretchedDots(
+              color: Theme.of(context).colorScheme.primary,
+              size: 75,
+            ),
           );
         });
 
@@ -60,7 +64,7 @@ class _LoginScreenState extends State<SinginScreen> {
           textAlign: TextAlign.center,
         ),
         duration: Duration(seconds: 2),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -74,7 +78,7 @@ class _LoginScreenState extends State<SinginScreen> {
           textAlign: TextAlign.center,
         ),
         duration: Duration(seconds: 2),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -83,7 +87,7 @@ class _LoginScreenState extends State<SinginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SafeArea(
             child: ConstrainedBox(
           constraints: BoxConstraints(),
@@ -98,7 +102,9 @@ class _LoginScreenState extends State<SinginScreen> {
                 ),
                 const SizedBox(height: 25),
                 Text("¡Bienvenido!",
-                    style: TextStyle(color: Colors.grey[700], fontSize: 18)),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontSize: 18)),
                 const SizedBox(height: 50),
                 MyTextfield(
                   controller: usuarioController,
@@ -119,7 +125,8 @@ class _LoginScreenState extends State<SinginScreen> {
                 MyButton(
                   text: 'Crear cuenta',
                   onTap: crearSesion,
-                  color: Colors.blue.shade400,
+                  color: Theme.of(context).colorScheme.primary,
+                  textColor: Theme.of(context).colorScheme.onPrimary,
                 ),
                 const SizedBox(height: 25),
                 Padding(
@@ -129,16 +136,17 @@ class _LoginScreenState extends State<SinginScreen> {
                       Expanded(
                           child: Divider(
                         thickness: 0.5,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).colorScheme.onSurface,
                       )),
                       Text(
                         'O continua con',
-                        style: TextStyle(color: Colors.grey[700]),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
                       Expanded(
                           child: Divider(
                         thickness: 0.5,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).colorScheme.onSurface,
                       ))
                     ],
                   ),
@@ -165,7 +173,7 @@ class _LoginScreenState extends State<SinginScreen> {
                       child: Text(
                         '¡Inicia sesión!',
                         style: TextStyle(
-                            color: Colors.blueAccent,
+                            color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold),
                       ),
                     )

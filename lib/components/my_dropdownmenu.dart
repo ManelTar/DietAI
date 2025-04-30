@@ -31,8 +31,8 @@ class _MyDropdownMenuState extends State<MyDropdownMenu> {
       borderRadius: BorderRadius.circular(15),
       value: selectedValue,
       icon: const Icon(Icons.keyboard_arrow_down_rounded),
-      style: const TextStyle(
-        color: Colors.black,
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.onSurface,
         fontWeight: FontWeight.bold,
         fontSize: 14,
       ),

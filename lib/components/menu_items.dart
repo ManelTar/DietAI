@@ -20,12 +20,14 @@ class MenuItems extends StatelessWidget {
           child: Container(
             height: 50,
             width: 250,
-            color: Colors.blue[300],
+            color: Theme.of(context).colorScheme.tertiary,
             child: Padding(
               padding: EdgeInsets.only(top: 15),
               child: Text(
                 "Nuevo menú",
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onTertiary),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -41,13 +43,14 @@ class MenuItems extends StatelessWidget {
           child: Container(
             height: 50,
             width: 250,
-            color: Colors.blue[200],
+            color: Theme.of(context).colorScheme.tertiary,
             child: Padding(
               padding: EdgeInsets.only(top: 15),
               child: Text(
                 "Ver lista de la compra",
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onTertiary),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -63,12 +66,14 @@ class MenuItems extends StatelessWidget {
           child: Container(
             height: 50,
             width: 250,
-            color: Colors.blue[100],
+            color: Theme.of(context).colorScheme.tertiary,
             child: Padding(
               padding: EdgeInsets.only(top: 15),
               child: Text(
                 "Configurar menús",
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onTertiary),
                 textAlign: TextAlign.center,
               ),
             ),

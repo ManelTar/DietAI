@@ -33,17 +33,19 @@ class _HomeScreenState extends State<HomeScreen> {
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade400,
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
           "Dietas",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 26),
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+              fontSize: 26),
         ),
       ),
       drawer: Drawer(
-        backgroundColor: Colors.blue.shade300,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         child: SafeArea(
           child: Column(
             children: [
@@ -54,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   FirebaseAuth.instance.currentUser!.displayName.toString(),
                   style: TextStyle(
-                    color: Colors.white70,
+                    color: Theme.of(context).colorScheme.onSecondary,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -67,7 +69,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: MyButton(
                   text: "Cerrar sesión",
                   onTap: cerrarSesion,
-                  color: Colors.red.shade400,
+                  color: Theme.of(context).colorScheme.error,
+                  textColor: Theme.of(context).colorScheme.onError,
                 ),
               ),
             ],
@@ -88,9 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                      child: LoadingAnimationWidget.staggeredDotsWave(
-                        color: Colors.white,
-                        size: 200,
+                      child: LoadingAnimationWidget.stretchedDots(
+                        color: Theme.of(context).colorScheme.secondary,
+                        size: 75,
                       ),
                     );
                   }
